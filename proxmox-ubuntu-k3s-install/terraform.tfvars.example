@@ -1,0 +1,60 @@
+# Variable Definition - Contains sensitive Info
+# Proxmox IP or FQDN plus :8006/api2/json
+pm_api_url = "https://proxmox-1:8006/api2/json"
+
+# Proxmox User
+pm_user = "root@pam"
+
+#Proxmox password for user
+pm_password =  "your_password"
+
+#VM Pool  
+pool = "User"
+
+# Storage Pool
+storage = "Your_StoragePool"
+
+# Storage Type
+storage_type = "nfs"
+
+#SSH Key to add to installed VM - important for passwordless SSH
+ssh_key = ""
+
+# Proxmox node(s) - add any you have
+proxmox_node = ["proxmox-1", "proxmox-2", "proxmox-3", "proxmox-1", "proxmox-2", "proxmox-3"]
+
+# VM Names
+k3s_nodes = ["k3sdemo-s01", "k3sdemo-s02", "k3sdemo-s03", "k3sdemo-w01", "k3sdemo-w02", "k3sdemo-w03"]
+
+#Proxmox VM IDs (change to fit your environment or it can be left blank for auto-assign)
+k3s_vmid = ["76101", "76102", "76103", "76121", "76122", "76123"]
+
+# Your domain if you have one
+search_domain = "my.domain.com"
+
+# Your DNS server if you have one
+name_server = "172.30.0.5"
+
+# First network bridge on proxmox
+first_network_bridge = "vmbr172"
+
+# First network - Rename the variable everywhere to match your network if you like
+first_network = ["172.30.76.101", "172.30.76.102", "172.30.76.103", "172.30.76.121", "172.30.76.122", "172.30.76.123"]
+
+# Network Gateway
+first_network_gw = "172.30.0.1"
+
+# Second network bridge on proxmox - uncomment if needed
+#second_network_bridge = "vmbr192"
+
+# Uncomment if you want to define a second network
+#second_network = ["192.168.12.101", "192.168.12.102", "192.168.12.103", "192.168.12.121", "192.168.12.122", "192.168.12.123"]
+
+# VM Memory Size - change to fit your resource requirements!
+k3s_memory = ["4096", "4096", "4096", "6144", "6144", "6144"]
+
+# Number of VM Cores - change to fit your resource requirements!
+k3s_cores = ["1", "1", "1", "2", "2", "2"]
+
+# Number of VM socckets - change to fit your resource requirements!
+k3s_sockets = ["2", "2", "2", "2", "2", "2"]
