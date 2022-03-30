@@ -1,38 +1,32 @@
 # Variable Declarations - Contains only non-sensitive defaults
 variable "pm_api_url" {
-  type = string
+  description = "Proxmox URL"
 }
 
 variable "pm_user" {
-  type        = string
   description = "Proxmox User"
   default     = "root@pam"
 }
 
 variable "pm_password" {
-  type        = string
   description = "Proxmox Password"
   sensitive   = true
 }
 
 variable "pool" {
-  type        = string
   description = "Proxmox VM Pool"
 }
 
 variable "storage_pool" {
-  type        = string
   description = "Proxmox Storage Pool for VMs"
 }
 
 variable "storage_type" {
-  type        = string
   description = "Storage type - Change to match your storage"
   default     = "nfs"
 }
 
 variable "ssh_key" {
-  type        = string
   description = "SSH Key to add to VM"
   sensitive   = true
 }
@@ -55,19 +49,16 @@ variable "k3s_vmid" {
 
 variable "search_domain" {
   description = "Your domain if available"
-  type        = string
   default = null
 }
 
 variable "name_server" {
   description = "DNS Server"
-  type        = string
 }
 
 
 variable "first_network_bridge" {
   description = "Proxmox bridge for first network"
-  type        = string
 }
 
 variable "first_network" {
@@ -77,13 +68,11 @@ variable "first_network" {
 
 variable "first_network_gw" {
   description = "Network Gateway"
-  type        = string
 }
 
 ## Uncomment if you want to define a second network
 #variable "second_network_bridge" {
 #  description = "Proxmox bridge for first network"
-#  type        = string
 #}
 
 ## Uncomment if you want to define a second network
@@ -128,14 +117,14 @@ provider "proxmox" {
   pm_user         = var.pm_user
 }
 
-resource "proxmox_vm_qemu" "cbc-k3s-demo" {
+resource "proxmox_vm_qemu" "k3s-demo" {
   count = length(var.k3s_nodes)
 
   name                    = var.k3s_nodes[count.index]
   vmid                    = var.k3s_vmid[count.index]
   desc                    = "Created using Terraform and cloudinit"
   target_node             = var.proxmox_node[count.index]
-  clone                   = "Ubuntu-20.4.4-test-t"
+  clone                   = "Ubuntu-20.4.4-new-t"
   full_clone              = true
   agent                   = 1
   os_type                 = "cloud-init"
@@ -174,6 +163,7 @@ resource "proxmox_vm_qemu" "cbc-k3s-demo" {
   # Setup the ip address using cloud-init.
   # Keep in mind to use the CIDR notation for the ip - (change /16 to /24 or other to fit network)
   ipconfig0 = "ip=${var.first_network[count.index]}/16,gw=${var.first_network_gw}"
+  
   # Keep in mind to use the CIDR notation for the ip - (change /16 to /24 or other to fit network)
   ## Uncomment if you have 2 networks
   #ipconfig1 = "ip=${var.second_network[count.index]}/16"
